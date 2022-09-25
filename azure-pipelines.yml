@@ -24,7 +24,7 @@ stages:
       displayName: Build an image
       inputs:
         containerRegistry: 'Jwambugu - DockerHub Connection'
-        repository: 'in28mins/currency-exchange-devops'
+        repository: 'jwambugu1/currency-exchange-devops'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
