@@ -1,7 +1,3 @@
-# Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
 - main
 
@@ -12,10 +8,10 @@ steps:
   - script: echo K8s Terraform Azure!
     displayName: 'Run a one-line script'
 
-- task: DownloadSecureFile@1
-  name: publickey
-  inputs:
-    secureFile: 'azure_rsa.pub'
+  - task: DownloadSecureFile@1
+    name: publickey
+    inputs:
+      secureFile: 'azure_rsa.pub'
 
   - task: TerraformCLI@0
     inputs:
