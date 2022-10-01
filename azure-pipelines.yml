@@ -5,26 +5,53 @@
 trigger:
 - main
 
-resources:
-- repo: self
+pool:
+  vmImage: 'ubuntu-latest'
+  
+steps:
+  - script: echo K8s Terraform Azure!
+    displayName: 'Run a one-line script'
 
-variables:
-  tag: '$(Build.BuildId)'
+- task: DownloadSecureFile@1
+  name: publickey
+  inputs:
+    secureFile: 'azure_rsa.pub'
 
-stages:
-- stage: Build
-  displayName: Build image
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        containerRegistry: 'Jwambugu - DockerHub Connection'
-        repository: 'jwambugu1/currency-exchange-devops'
-        command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
-        tags: '$(tag)'
+  - task: TerraformCLI@0
+    inputs:
+      command: 'init'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes'
+      commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
+      backendType: 'azurerm'
+      backendServiceArm: 'azure-resource-manager-service-connection'
+      ensureBackend: true
+      backendAzureRmResourceGroupName: 'terraform-backend-rsg'
+      backendAzureRmResourceGroupLocation: 'eus'
+      backendAzureRmStorageAccountName: 'storageaccount-jwambugu-049'
+      backendAzureRmContainerName: 'storageaccont-jwambugu-container'
+      backendAzureRmKey: 'kubernetes-dev.tfstate'
+      allowTelemetryCollection: true
+    
+# resources:
+# - repo: self
+
+# variables:
+#   tag: '$(Build.BuildId)'
+
+# stages:
+# - stage: Build
+#   displayName: Build image
+#   jobs:
+#   - job: Build
+#     displayName: Build
+#     pool:
+#       vmImage: ubuntu-latest
+#     steps:
+#     - task: Docker@2
+#       displayName: Build an image
+#       inputs:
+#         containerRegistry: 'Jwambugu - DockerHub Connection'
+#         repository: 'jwambugu1/currency-exchange-devops'
+#         command: 'buildAndPush'
+#         Dockerfile: '**/Dockerfile'
+#         tags: '$(tag)'
