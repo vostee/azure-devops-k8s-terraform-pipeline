@@ -22,7 +22,7 @@ steps:
       backendServiceArm: 'azure-resource-manager-service-connection'
       ensureBackend: true
       backendAzureRmResourceGroupName: 'terraform-backend-rsg'
-      backendAzureRmResourceGroupLocation: 'eus'
+      backendAzureRmResourceGroupLocation: 'eastus'
       backendAzureRmStorageAccountName: 'storageaccount-jwambugu-049'
       backendAzureRmContainerName: 'storageaccont-jwambugu-container'
       backendAzureRmKey: 'kubernetes-dev.tfstate'
