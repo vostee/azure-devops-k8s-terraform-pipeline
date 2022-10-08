@@ -12,12 +12,8 @@ steps:
     name: publickey
     inputs:
       secureFile: 'azure_rsa.pub'
-  
-  - task: TerraformInstaller@0
-    inputs:
-      terraformVersion: 'latest'
 
-  - task: TerraformV2@2
+  - task: TerraformCLI@0
     inputs:
       command: 'init'
       workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes'
