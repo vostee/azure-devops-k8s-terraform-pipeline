@@ -24,7 +24,7 @@ steps:
       backendAzureRmResourceGroupName: 'terraform-backend-rsg'
       backendAzureRmResourceGroupLocation: 'eastus'
       backendAzureRmStorageAccountName: 'storageacctjwambugu'
-      backendAzureRmContainerName: 'storageaccontjwambugucontainer'
+      backendAzureRmContainerName: 'storageaccountjwambugucontainer'
       backendAzureRmKey: 'kubernetes-dev.tfstate'
       allowTelemetryCollection: true
     
